@@ -11,7 +11,8 @@ class Messages extends React.Component {
         channel : this.props.currentChannel,
         user : this.props.currentUser,
         messages: [],
-        messagesLoading : true
+        messagesLoading : true,
+        progressBar: false
     };
 
     componentDidMount() {
@@ -40,23 +41,30 @@ class Messages extends React.Component {
                message = {message}
                user = {this.state.user}  />
         ))
-    )
+    );
+
+    isProgressBarVisible = percent => {
+        if(percent> 0) {
+            this.setState({progressBar: true});
+        }
+    }
 
 
 render(){
-    const {messagesRef ,messages, channel, user} = this.state;
+    const {messagesRef ,messages, channel, user, progressBar} = this.state;
     return (
       <React.Fragment>
           <MessageHeader />
 
           <Segment className="">
-              <Comment.Group className = "messages">
+              <Comment.Group className = {progressBar ? 'message__progress' :
+             'messages'}>
                   {this.displayMessages(messages)}
 
               </Comment.Group>
           </Segment>
 
-          <MessageForm  messagesRef = {messagesRef} currentChannel = {channel} currentUser = {user} />
+          <MessageForm  messagesRef = {messagesRef} currentChannel = {channel} currentUser = {user} isProgressBarVisible = {this.isProgressBarVisible} />
       </React.Fragment> 
     );
 }
