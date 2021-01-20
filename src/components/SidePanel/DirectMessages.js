@@ -33,14 +33,14 @@ class DirectMessages extends React.Component {
         });
 
         this.state.connectedRef.on('value' , snap => {
-            if(snap.value === true) {
+            if(snap.val() === true) {
                 const ref =  this.state.presenceRef.child(currentUserUid);
-                ref.state(true);
+                ref.set(true);
                 ref.onDisconnect().remove(err => {
                     if (err !== null) {
                         console.error(err);
                     }
-                });
+                })
 
             }
         });
