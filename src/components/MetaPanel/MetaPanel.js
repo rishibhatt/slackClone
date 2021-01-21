@@ -6,7 +6,7 @@ class MetaPanel extends React.Component {
 
     return (
         <div>
-            MetaPanel
+            This is the MetaPanel 
         </div>
     )
  }
